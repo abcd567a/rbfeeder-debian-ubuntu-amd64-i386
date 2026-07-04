@@ -27,7 +27,7 @@ sudo apt update || true
 echo -e "\e[1;32mInstalling following packages to provide QEMU support ...
    qemu-user  qemu-user-binfmt  binfmt-support\e[0;39m"; sleep 4
 
-sudo apt -y install qemu-user qemu-user-binfmt binfmt-support
+apt -y install qemu-user qemu-user-binfmt binfmt-support
 
 if [[ ${OS_VERSION} == faye && ${OS_ARCH} == i386 ]]; then
 echo -e "\e[1;32mAdding \"[arch=i386,arm64]\" after \"deb\" to all lines in existing file \"official-package-repositories.list\" ...\e[0;39m"; sleep 2
@@ -37,11 +37,12 @@ sudo sed -i '/debian/s/^deb http/deb [arch=i386,arm64] http/g' /etc/apt/sources.
 fi
 
 echo -e "\e[1;32mAdding arhitecture arm64 to system ...\e[0;39m"; sleep 2
-sudo dpkg --add-architecture arm64
-sudo apt update
+dpkg --add-architecture arm64
+apt update
 
 echo -e "\e[1;32mInstalling package libc6:arm64 to provide arm64 support ...\e[0;39m"; sleep 2
-sudo apt -y install libc6:arm64
+apt -y install libc6:arm64
+apt --fix-broken install
 
 echo -e "\e[1;32mSetting up RB24 repository \e[0;39m"; sleep 2
 sudo apt install -y dirmngr gnupg
@@ -54,18 +55,19 @@ elif [[ `lsb_release -sc` == trixie ]]; then
    echo "deb [signed-by=/etc/apt/keyrings/rb24.gpg] https://apt.rb24.com/ trixie main" | sudo tee /etc/apt/sources.list.d/rb24.list
 fi
 
-sudo apt update
+apt update
 
 echo -e "\e[1;32mRunning command \"sudo apt install rbfeeder:arm64\" to nstalli rbfeeder from RB24 repository ...\e[0;39m"; sleep 2
-sudo apt install -y rbfeeder:arm64
-sudo systemctl restart rbfeeder
+apt install -y rbfeeder:arm64
+apt --fix-broken install
+systemctl restart rbfeeder
 
 echo -e "\e[1;32mDownloading & installing package \"mlat-client\" from github.com/abcd567a/ ...\e[0;39m"; sleep 2
 wget -O /tmp/mlat-client_0.2.13-bookworm_i386.deb https://github.com/abcd567a/rbfeeder/releases/download/v1.0/mlat-client_0.2.13-bookworm_i386.deb
-sudo apt install -y /tmp/mlat-client_0.2.13-bookworm_i386.deb
+apt install -y /tmp/mlat-client_0.2.13-bookworm_i386.deb || true
 
-sudo apt-mark hold mlat-client || true
-sudo systemctl restart rbfeeder
+apt-mark hold mlat-client || true
+systemctl restart rbfeeder
 
 echo " "
 echo -e "\e[1;32mTHE SCRIPT HAS COMPLETED INSTALLATION......\e[0;39m"
