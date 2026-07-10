@@ -139,7 +139,7 @@ apt --fix-broken install
 systemctl restart rbfeeder
 
 echo -e "\e[1;32mDownloading & installing package \"mlat-client\" from github.com/abcd567a/ ...\e[0;39m"; sleep 2
-if [[ ${OS_VERSION} == noble ]]; then
+if [[ ${OS_VERSION} == noble || ${OS_VERSION} == resolute ]]; then
 apt install -y python3-pyasyncore
 wget -O /tmp/mlat-client_0.2.13_noble_amd64.deb https://github.com/abcd567a/rbfeeder/releases/download/v1.0/mlat-client_0.2.13_noble_amd64.deb || true
 apt install -y /tmp/mlat-client_0.2.13_noble_amd64.deb || true
