@@ -17,7 +17,7 @@ sudo bash -c "$(wget -O - https://github.com/abcd567a/rbfeeder-debian-ubuntu-amd
 
 </br>
 
-## Script 2 of 3: For Ubuntu 22 & 24 AMD64 (jammy & noble)
+## Script 2 of 3: For Ubuntu 22, 24, & 26 AMD64 (jammy, noble & resolute)
 **This script is very long, and it’s right-most part may not be visible directly.**
 **Please scroll right to view and copy it in full.**
 
