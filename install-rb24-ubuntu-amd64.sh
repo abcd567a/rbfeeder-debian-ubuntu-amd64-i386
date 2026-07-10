@@ -138,30 +138,26 @@ apt install -y rbfeeder:arm64
 apt --fix-broken install
 systemctl restart rbfeeder
 
-echo -e "\e[1;32mDownloading & installing package \"mlat-client\" from github.com/abcd567a/ ...\e[0;39m"; sleep 2
+echo " "
+echo -e "\e[1;32mBuilding package \"mlat-client\" from source-code ...\e[0;39m"; sleep 3
+echo " "
 if [[ ${OS_VERSION} == noble || ${OS_VERSION} == resolute ]]; then
-##apt install -y python3-pyasyncore
-##wget -O /tmp/mlat-client_0.2.13_noble_amd64.deb https://github.com/abcd567a/rbfeeder/releases/download/v1.0/mlat-client_0.2.13_noble_amd64.deb || true
-##apt install -y /tmp/mlat-client_0.2.13_noble_amd64.deb || true
+apt install -y python3-pyasyncore
+fi
 apt install -y \
 git \
 build-essential \
 debhelper \
 dh-python \
 python3-dev \
-python3-setuptools \
-python3-pyasyncore
+python3-setuptools || true
 
+cd /tmp/
 git clone --depth 1 https://github.com/mutability/mlat-client
 cd mlat-client
 dpkg-buildpackage -b --no-sign
 cd ../
 dpkg -i mlat-client_0.2.13_*.deb
-
-elif [[ ${OS_VERSION} == jammy ]]; then
-wget -O /tmp/mlat-client_0.2.13_jammy_amd64.deb https://github.com/abcd567a/rbfeeder/releases/download/v1.0/mlat-client_0.2.13_jammy_amd64.deb
-apt install -y /tmp/mlat-client_0.2.13_jammy_amd64.deb || true
-fi
 
 apt-mark hold mlat-client || true
 
