@@ -56,19 +56,29 @@ apt install -y rbfeeder:arm64 || true
 apt --fix-broken install
 systemctl restart rbfeeder
 
-echo -e "\e[1;32mInstalling package \"mlat-client\" ...\e[0;39m"; sleep 2
-if [[ `lsb_release -sc` == bookworm ]]; then
-apt install -y mlat-client:arm64 || true
-apt --fix-broken install || true
-
-elif [[ `lsb_release -sc` == trixie ]]; then
-apt install -y python3-pyasyncore || true
-apt --fix-broken install || true
-apt install -y mlat-client:arm64 || true
-apt --fix-broken install || true
+echo " "
+echo -e "\e[1;32mBuilding package \"mlat-client\" from source-code ...\e[0;39m"; sleep 3
+echo " "
+if [[ ${OS_VERSION} == trixie ]]; then
+apt install -y python3-pyasyncore
 fi
+apt install -y \
+git \
+build-essential \
+debhelper \
+dh-python \
+python3-dev \
+python3-setuptools || true
+
+cd /tmp/
+git clone --depth 1 https://github.com/mutability/mlat-client
+cd mlat-client
+dpkg-buildpackage -b --no-sign
+cd ../
+dpkg -i mlat-client_0.2.13_*.deb
 
 apt-mark hold mlat-client || true
+
 systemctl restart rbfeeder
 
 echo " "
