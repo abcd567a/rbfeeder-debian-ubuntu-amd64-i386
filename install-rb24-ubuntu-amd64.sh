@@ -163,41 +163,6 @@ apt-mark hold mlat-client || true
 
 systemctl restart rbfeeder
 
-## Install dum1090-fa (optional)
-while true; do
-    echo " "
-    read -p $'\e[01;32mDo you want to install Flightaware\'s dump1090-fa? (y/n) \e[0m ' REPLY
-    echo ""
-
-    case $REPLY in
-        [Yy]* )
-            echo -e "\e[32mSetting up Flightaware repository...\e[0m"
-            sleep 3
-            wget https://www.flightaware.com/adsb/piaware/files/packages/pool/piaware/f/flightaware-apt-repository/flightaware-apt-repository_1.3_all.deb
-            dpkg -i flightaware-apt-repository_1.3_all.deb
-            apt update
-            echo " "
-            echo -e "\e[32mInstalling dump1090-fa...\e[0m"
-            echo " "
-            apt install dump1090-fa
-            apt --fix-broken install
-            systemctl restart dump1090-fa
-            break
-            ;;
-        [Nn]* )
-            echo -e "\e[01;32mSkipping installation of dump1090-fa \e[0m"
-            echo " "
-            exit 0
-            ;;
-        * )
-            echo -e "\e[01;35mInvalid input. Please press y or n. \e[0m"
-            ;;
-    esac
-done
-
-
-
-
 echo " "
 echo -e "\e[1;32mTHE SCRIPT HAS COMPLETED INSTALLATION......\e[0;39m"
 echo " "
