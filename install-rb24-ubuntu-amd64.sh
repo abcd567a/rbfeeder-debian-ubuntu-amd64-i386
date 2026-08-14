@@ -185,4 +185,7 @@ echo ""
 echo -e "\e[1;35m(5) Visit Radarbox Claims web page to link station to yor account \e[0;39m"
 echo -e "\e[1;35mYou must login to your Radarbox account when visisting Claims page \e[0;39m"
 echo " "
-
+echo -e "\e[1;31mREBOOT YOUR COMPUTER.... \e[0;39m"
+echo -e "\e[1;31mREBOOT YOUR COMPUTER.... \e[0;39m"
+echo -e "\e[1;31mREBOOT YOUR COMPUTER.... \e[0;39m"
+echo " "
