@@ -133,6 +133,9 @@ fi
 
 apt update
 
+echo -e "\e[1;32mCreating file blacklist-rtlsdr.conf...\e[0;39m"; sleep 2
+echo -e "blacklist dvb_usb_rtl28xxu\nblacklist dvb_usb_v2\nblacklist rtl_2830\nblacklist rtl_2832\nblacklist r820t" | sudo tee /etc/modprobe.d/blacklist-rtlsdr.conf
+
 echo -e "\e[1;32mRunning command \"apt install rbfeeder:arm64\" to nstalli rbfeeder from RB24 repository ...\e[0;39m"; sleep 2
 apt install -y rbfeeder:arm64
 apt --fix-broken install
