@@ -53,6 +53,11 @@ apt update
 
 echo -e "\e[1;32mCreating file blacklist-rtlsdr.conf...\e[0;39m"; sleep 2
 echo -e "blacklist dvb_usb_rtl28xxu\nblacklist dvb_usb_v2\nblacklist rtl_2830\nblacklist rtl_2832\nblacklist r820t" | sudo tee /etc/modprobe.d/blacklist-rtlsdr.conf
+modprobe -r --remove-dependencies dvb_usb_rtl28xxu rtl2832 rtl2830 dvb_usb_v2 dvb_core  2>/dev/null || true
+rmmod dvb_usb_rtl28xxu rtl2832 rtl2830 dvb_usb_v2 dvb_core  2>/dev/null || true
+wget -O /etc/udev/rules.d/rtl-sdr.rules https://github.com/osmocom/rtl-sdr/raw/master/rtl-sdr.rules || true
+update-initramfs -u
+usermod -aG plugdev rbfeeder
 
 echo -e "\e[1;32mRunning command \"sudo apt install rbfeeder:arm64\" to nstalli rbfeeder from RB24 repository ...\e[0;39m"; sleep 2
 apt install -y rbfeeder:arm64 || true
