@@ -61,7 +61,7 @@ update-initramfs -u
 echo -e "\e[1;32mRunning command \"sudo apt install rbfeeder:arm64\" to nstalli rbfeeder from RB24 repository ...\e[0;39m"; sleep 2
 apt install -y rbfeeder:arm64 || true
 apt --fix-broken install
-usermod -aG plugdev rbfeeder
+usermod -aG plugdev rbfeeder || true
 systemctl restart rbfeeder
 
 echo " "
