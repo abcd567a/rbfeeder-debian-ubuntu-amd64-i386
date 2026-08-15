@@ -139,11 +139,11 @@ modprobe -r --remove-dependencies dvb_usb_rtl28xxu rtl2832 rtl2830 dvb_usb_v2 dv
 rmmod dvb_usb_rtl28xxu rtl2832 rtl2830 dvb_usb_v2 dvb_core  2>/dev/null || true
 wget -O /etc/udev/rules.d/rtl-sdr.rules https://github.com/osmocom/rtl-sdr/raw/master/rtl-sdr.rules || true
 update-initramfs -u
-usermod -aG plugdev rbfeeder
 
 echo -e "\e[1;32mRunning command \"apt install rbfeeder:arm64\" to nstalli rbfeeder from RB24 repository ...\e[0;39m"; sleep 2
 apt install -y rbfeeder:arm64
 apt --fix-broken install
+usermod -aG plugdev rbfeeder
 systemctl restart rbfeeder
 
 echo " "
