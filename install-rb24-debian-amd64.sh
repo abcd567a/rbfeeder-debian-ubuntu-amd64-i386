@@ -51,6 +51,11 @@ fi
 
 apt update
 
+echo -e "\e[1;32mCreating file blacklist-rtlsdr.conf...\e[0;39m"; sleep 2
+echo -e "blacklist dvb_usb_rtl28xxu\nblacklist dvb_usb_v2\nblacklist rtl_2830\nblacklist rtl_2832\nblacklist r820t\nblacklist rtl2832_sdr" | sudo tee /etc/modprobe.d/blacklist-rtlsdr.conf
+modprobe -r rtl2832_sdr dvb_usb_rtl28xxu rtl2832 rtl2830 dvb_usb_v2 dvb_core  2>/dev/null || true
+rmmod rtl2832_sdr rtl2832 dvb_usb_rtl28xxu dvb_usb_v2 dvb_core  2>/dev/null || true
+
 echo -e "\e[1;32mInstalling file rtl-sdr.rules ...\e[0;39m"; sleep 2
 wget -O /etc/udev/rules.d/rtl-sdr.rules https://github.com/osmocom/rtl-sdr/raw/master/rtl-sdr.rules || true
 udevadm control --reload-rules
